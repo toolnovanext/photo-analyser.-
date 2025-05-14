@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    .slogan {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0056b3;
+      margin-bottom: 10px;
+    }
+    .greeting-time {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .greeting {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .feature-box {
+      background-color: #e6f7ff;
+      padding: 15px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      color: #004085;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    #preview {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #result {
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="slogan">Realizing Dreams Through the Touch of Technology</div>
+  <div class="greeting-time" id="timeGreeting"></div>
+
+  <div class="greeting">
+    <strong>Heartfelt greetings from S M Ripon and the Accessible Resource Team!</strong><br>
+    We hope you enjoy a smooth and delightful experience with our creation.
+  </div>
+
+  <div class="feature-box">
+    Discover the magic of smart photo insights! This powerful tool helps you understand what's in your photo instantly using advanced AI technology.
+  </div>
+
+  <h1>Photo Analyzer</h1>
+  <input type="file" id="imageInput" accept="image/*"><br>
+  <img id="preview" src="" alt="Image Preview">
+  <br>
+  <button onclick="analyzeImage()">Analyze Photo</button>
+  <div id="result"></div>
+
+  <script>
+    const apiKey = "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";
+    const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+    const resultDiv = document.getElementById("result");
+
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          preview.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    async function analyzeImage() {
+      const file = imageInput.files[0];
+      if (!file) return alert("Please select an image first.");
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Image = reader.result;
+
+        const payload = {
+          model: "moonshotai/kimi-vl-a3b-thinking:free",
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: "What is in this image?"
+                },
+                {
+                  type: "image_url",
+                  image_url: {
+                    url: base64Image
+                  }
+                }
+              ]
+            }
+          ]
+        };
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+          resultDiv.innerText = data.choices?.[0]?.message?.content || "No response received.";
+        } catch (error) {
+          resultDiv.innerText = "Error: " + error.message;
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    // Time-based greeting
+    const timeGreeting = document.getElementById("timeGreeting");
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      timeGreeting.textContent = "Good morning!";
+    } else if (hour < 18) {
+      timeGreeting.textContent = "Good afternoon!";
+    } else {
+      timeGreeting.textContent = "Good evening!";
+    }
+  </script>
+</body>
+</html>
