@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>accessible resource photo analyser</title>
@@ -11,100 +10,89 @@
       flex-direction: column;
       align-items: center;
       padding: 30px;
-    }
+    }h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
 
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
+#imageInput, #questionInput {
+  margin: 15px 0;
+}
 
-    #imageInput, #questionInput {
-      margin: 15px 0;
-    }
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: #2980b9;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+button:hover {
+  background-color: #1c5a84;
+}
 
-    button:hover {
-      background-color: #1c5a84;
-    }
+#result, #answer {
+  margin-top: 30px;
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
 
-    #result, #answer {
-      margin-top: 30px;
-      padding: 20px;
-      width: 90%;
-      max-width: 700px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    }
+textarea {
+  width: 100%;
+  padding: 10px;
+  resize: vertical;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
 
-    textarea {
-      width: 100%;
-      padding: 10px;
-      resize: vertical;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+label {
+  font-weight: bold;
+  margin-top: 20px;
+  display: block;
+}
 
-    label {
-      font-weight: bold;
-      margin-top: 20px;
-      display: block;
-    }
+#slogan {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #34495e;
+  text-align: center;
+}
 
-    #slogan {
-      font-size: 1.3em;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #34495e;
-      text-align: center;
-    }
+#greeting {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  text-align: center;
+}
 
-    #greeting {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      color: #2c3e50;
-      text-align: center;
-    }
+#feature-desc {
+  font-size: 1em;
+  margin-bottom: 25px;
+  color: #7f8c8d;
+  text-align: center;
+  max-width: 700px;
+}
 
-    #feature-desc {
-      font-size: 1em;
-      margin-bottom: 25px;
-      color: #7f8c8d;
-      text-align: center;
-      max-width: 700px;
-    }
   </style>
+  <script src="https://toolnovanext.github.io/scripts/navigation.js" defer></script>
+  <script src="https://toolnovanext.github.io/scripts/notification.js" defer></script>
 </head>
-<body>
-
-  <div id="slogan">Realizing Dreams Through the Touch of Technology</div>
+<body>  <div id="slogan">Realizing Dreams Through the Touch of Technology</div>
   <div id="greeting"></div>
-  <div id="feature-desc">This tool helps you analyze images for better accessibility.</div>
+  <div id="feature-desc">This tool helps you analyze images for better accessibility.</div>  <h1>accessible resource photo analyser</h1>  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="analyzeImage()">Analyze Image</button>  <div id="result"></div><label for="questionInput">Ask a question about the image:</label>
 
-  <h1>accessible resource photo analyser</h1>
+  <textarea id="questionInput" rows="3" placeholder="Type your question here..."></textarea><button onclick="askQuestion()">Send Question</button>
 
-  <input type="file" id="imageInput" accept="image/*">
-  <button onclick="analyzeImage()">Analyze Image</button>
-
-  <div id="result"></div>
-
-  <label for="questionInput">Ask a question about the image:</label>
-  <textarea id="questionInput" rows="3" placeholder="Type your question here..."></textarea>
-  <button onclick="askQuestion()">Send Question</button>
-
-  <div id="answer"></div>
-
-  <script>
+  <div id="answer"></div>  <script>
     // Time-based greeting message with your name and team
     function getGreeting() {
       const hour = new Date().getHours();
@@ -226,7 +214,5 @@
         console.error(error);
       }
     }
-  </script>
-
-</body>
+  </script></body>
 </html>
